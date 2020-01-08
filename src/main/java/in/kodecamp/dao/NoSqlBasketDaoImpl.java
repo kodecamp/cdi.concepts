@@ -5,17 +5,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-@NoSqlDb
+//@NoSqlDb
+@Named("noSqlBasketDao")
 public class NoSqlBasketDaoImpl implements BasketDao {
   
   private List<String> items = new ArrayList<>();
   private final DbConfig config;
 
   @Inject
-  public NoSqlBasketDaoImpl(DbConfig config) {
+  public NoSqlBasketDaoImpl(DbConfigProvider configProvider) {
     System.out.println("NoSqlBasketDaoImpl : Constructor");
-    this.config = config;
+    this.config = configProvider.get();
   }
   
   @Override

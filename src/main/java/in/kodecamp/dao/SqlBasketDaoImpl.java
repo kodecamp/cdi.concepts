@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Provider;
+import javax.inject.Singleton;
 
+@Named("sqlBasketDao")
+@Singleton
 public class SqlBasketDaoImpl implements BasketDao {
 
   private List<String> db = new ArrayList<>();
-  private DbConfig config;
+  private final DbConfig config;
 
   @Inject
-  public SqlBasketDaoImpl(DbConfig config) {
-    this.config = config;
+  public SqlBasketDaoImpl(@Named("dbConfigProvider") BaseProvider<DbConfig> configProvider) {
+    this.config = configProvider.get();
     System.out.println("BasketSqlDaoImpl : Constructor");
   }
 

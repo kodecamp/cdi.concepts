@@ -4,17 +4,22 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
 import in.kodecamp.dao.BasketDao;
+import in.kodecamp.interceptors.Secured;
 
+@Named("sqlBasketService")
+@Singleton
+@Secured
 public class SqlBasketServiceImpl implements BasketService {
 
   private BasketDao basketDao;
   
-  @Inject @SqlDb 
-  public SqlBasketServiceImpl(BasketDao basketDao) {
+  @Inject 
+  public SqlBasketServiceImpl(@Named("sqlBasketDao") BasketDao basketDao) {
     System.out.println("SqlServiceImpl : Constructor");
     this.basketDao = basketDao;
     System.out.println("SqlServiceImpl : basketDao : " + this.basketDao);
@@ -41,6 +46,7 @@ public class SqlBasketServiceImpl implements BasketService {
   }
 
   @Override
+  @Secured
   public List<String> getItems() {
     return this.basketDao.fetchItems();
   }

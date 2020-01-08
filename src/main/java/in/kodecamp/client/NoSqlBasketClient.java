@@ -3,15 +3,15 @@ package in.kodecamp.client;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import in.kodecamp.service.BasketService;
-import in.kodecamp.service.NoSqlService;
 
 public class NoSqlBasketClient {
   private BasketService service;
 
   @Inject 
-  public NoSqlBasketClient(@NoSqlService BasketService service) {
+  public NoSqlBasketClient(@Named("noSqlBasketService") BasketService service) {
    this.service = service; 
   }
   
